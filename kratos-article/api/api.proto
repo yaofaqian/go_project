@@ -5,7 +5,7 @@ syntax = "proto3";
 
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "google/protobuf/empty.proto";
-import "google/api/annotations.proto";
+//import "google/api/annotations.proto";
 
 // package 命名使用 {appid}.{version} 的方式, version 形如 v1, v2 ..
 package article.service.v1;
@@ -16,19 +16,19 @@ option (gogoproto.goproto_getters_all) = false;
 service Article {
   rpc Ping(.google.protobuf.Empty) returns (.google.protobuf.Empty);
   rpc ArticleDetail(ArticleReq) returns (ArticleResp);
-  rpc ArticlePage(ArticlePageReq) returns(ArticlePageResp);
+  //rpc ArticlePage(ArticlePageReq) returns(ArticlePageResp);
 }
 
 message ArticleReq {
   int64 id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
 }
-message ArticlePageReq{
-  int32 size = 1 [(gogoproto.moretags) = 'form:"size" validate:"required"'];
-  int32 page = 1 [(gogoproto.moretags) = 'form:"page" validate:"required"'];
-}
-message ArticlePageResp{
-     L = 1;
-}
+//message ArticlePageReq{
+//  int32 size = 1 [(gogoproto.moretags) = 'form:"size" validate:"required"'];
+//  int32 page = 2 [(gogoproto.moretags) = 'form:"page" validate:"required"'];
+//}
+//message ArticlePageResp{
+//  repeated ArticleResp data = 1;
+//}
 message ArticleResp {
   int64 ArticleId = 1 [(gogoproto.jsontag) = 'article_id'];
   string ArticleTitle = 2 [(gogoproto.jsontag) = 'article_title'];

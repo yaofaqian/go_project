@@ -6,6 +6,7 @@ import (
 	"github.com/go-kratos/kratos/pkg/conf/paladin"
 	"github.com/go-kratos/kratos/pkg/ecode"
 	pb "kratos-article/api"
+	"kratos-article/internal/biz"
 	"kratos-article/internal/dao"
 
 	"github.com/golang/protobuf/ptypes/empty"
@@ -18,6 +19,7 @@ var Provider = wire.NewSet(New, wire.Bind(new(pb.ArticleServer), new(*Service)))
 type Service struct {
 	ac  *paladin.Map
 	dao dao.Dao
+	biz biz.Biz
 }
 
 // New new a service and return.
@@ -33,7 +35,7 @@ func New(d dao.Dao) (s *Service, cf func(), err error) {
 
 // SayHelloURL bm demo func.
 func (s *Service) ArticleDetail(ctx context.Context, req *pb.ArticleReq) (reply *pb.ArticleResp, err error) {
-	articleContentSource, err := s.dao.Article(ctx, req.Id)
+	articleContentSource, err := s.biz.ArticleDetail(ctx, req.Id)
 
 	if err != nil {
 		if errors.Is(err, dao.NotFound) {
@@ -51,6 +53,10 @@ func (s *Service) ArticleDetail(ctx context.Context, req *pb.ArticleReq) (reply 
 	return
 }
 
+//查询文章列表
+//func(s *Service) ArticlePage(ctx context.Context, req *pb.ArticlePageReq) (resp *pb.ArticlePageResp, err error){
+//
+//}
 // Ping ping the resource.
 func (s *Service) Ping(ctx context.Context, e *empty.Empty) (*empty.Empty, error) {
 	return &empty.Empty{}, s.dao.Ping(ctx)
@@ -58,7 +64,4 @@ func (s *Service) Ping(ctx context.Context, e *empty.Empty) (*empty.Empty, error
 
 // Close close the resource.
 func (s *Service) Close() {
-}
-type DTO struct{
-
 }

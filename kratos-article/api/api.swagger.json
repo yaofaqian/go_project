@@ -1,0 +1,118 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "api.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/article.service.v1.Article/ArticleDetail": {
+            "get": {
+                "summary": "/article.service.v1.Article/ArticleDetail",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.article.service.v1.ArticleResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "article.service.v1.Article"
+                ]
+            }
+        },
+        "/article.service.v1.Article/Ping": {
+            "get": {
+                "summary": "/article.service.v1.Article/Ping",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "article.service.v1.Article"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".article.service.v1.ArticleReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "id"
+            ]
+        },
+        ".article.service.v1.ArticleResp": {
+            "type": "object",
+            "properties": {
+                "article_id": {
+                    "type": "integer"
+                },
+                "article_title": {
+                    "type": "string"
+                },
+                "article_author": {
+                    "type": "string"
+                },
+                "article_content": {
+                    "type": "string"
+                }
+            },
+            "description": "message ArticlePageReq{\n  int32 size = 1 [(gogoproto.moretags) = 'form:\"size\" validate:\"required\"'];\n  int32 page = 2 [(gogoproto.moretags) = 'form:\"page\" validate:\"required\"'];\n}\nmessage ArticlePageResp{\n  repeated ArticleResp data = 1;\n}"
+        },
+        ".google.protobuf.Empty": {
+            "type": "object",
+            "properties": {},
+            "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }\n\n The JSON representation for `Empty` is empty JSON object `{}`."
+        }
+    }
+}
